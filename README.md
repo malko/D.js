@@ -137,7 +137,7 @@ return a __deferred__ object with **promise** as a property and **resolve**, **f
 setting this to false will broke the compliance to the Promises/A+ specification but will try to resolve promise immediatly if the value is available instead of forcing an async resolution this is not a recommended behaviour but it may be useful in some cases
 #### D.onlyFuncs = true
 This setting passed to false will also break compliance with the Promises/A+ specification by allowing then, success, error, apply and rethrow to received values instead of callbacks for onFulfilled or onRejected and will resolve the promise with thoose values.
-#### D.resolved(value)
+#### D.resolved(value), D.fulfilled(value)
 return a resolved promise of __value__
 #### D.rejected(reason)
 return a rejected promise with given __reason__
