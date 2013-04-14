@@ -1,17 +1,28 @@
 {
-	"author": "Jonathan Gotti <jgotti@jgotti.org>",
-	"name": "d.js",
-	"description": "a tiny promise/A library",
-	"version": "0.1.0",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com:malko/D.js.git#node_module"
-	},
-	"engines": {
-		"node": ">=0.8"
-	},
-	"directories": {
-		"lib": "./lib"
-	},
-	"main": "./lib/D.js"
+  "author": "Jonathan Gotti <jgotti@jgotti.org>",
+  "name": "d.js",
+  "description": "a tiny promise/A library",
+  "version": "0.1.0",
+  "licence": "MIT style",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:malko/D.js.git"
+  },
+  "devDependencies": {
+    "promises-aplus-tests": "*",
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "*"
+  },
+  "scripts": {
+    "test": "promises-aplus-tests  tests/d-aplus-adapter.js"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "readmeFilename": "README.md",
+  "main": "lib/D.js"
 }
