@@ -272,7 +272,7 @@ Full-Width Styles
 
 .inner {
   position: relative;
-  max-width: 640px;
+  max-width: 840px;
   padding: 20px 10px;
   margin: 0 auto;
 }
@@ -369,6 +369,8 @@ Full-Width Styles
 #main_content {
   padding-top: 40px;
 }
+
+#main_content img{ width:auto; }
 
 #footer_wrap {
   background: #212121;
