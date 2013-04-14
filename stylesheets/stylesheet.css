@@ -370,7 +370,7 @@ Full-Width Styles
   padding-top: 40px;
 }
 
-#main_content img{ width:auto; }
+#main_content img{ width:auto; float:none; vertical-align:middle; border:none;box-shadow:none;}
 
 #footer_wrap {
   background: #212121;
