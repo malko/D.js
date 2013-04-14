@@ -1,8 +1,8 @@
 {
   "author": "Jonathan Gotti <jgotti@jgotti.org>",
   "name": "d.js",
-  "description": "a tiny promise/A library",
-  "version": "0.1.0",
+  "description": "a tiny promise/A+ library",
+  "version": "0.2.0",
   "licence": "MIT style",
   "repository": {
     "type": "git",
