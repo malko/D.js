@@ -3,7 +3,8 @@
   "name": "d.js",
   "description": "a tiny promise/A+ library",
   "version": "0.2.0",
-  "licence": "MIT style",
+  "licence": "MIT",
+  "main": "lib/D.js",
   "repository": {
     "type": "git",
     "url": "git://github.com:malko/D.js.git"
@@ -24,5 +25,10 @@
     "test": "tests"
   },
   "readmeFilename": "README.md",
-  "main": "lib/D.js"
+  "keywords": [
+    "Promises/A+",
+    "promise",
+    "then",
+		"async"
+  ]
 }
