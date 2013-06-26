@@ -150,7 +150,7 @@ ie:
 ```javascript
 var fs = require('fs')
 	, D = require('d.js')
-	, readFile = D.nodeStyle(fs,fs.readFile)
+	, readFile = D.nodeCapsule(fs,fs.readFile)
 ;
 
 readFile('/etc/passwd')
