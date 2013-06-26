@@ -224,7 +224,7 @@ ie:</p>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
     <span class="p">,</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'d.js'</span><span class="p">)</span>
-    <span class="p">,</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="nx">D</span><span class="p">.</span><span class="nx">nodeStyle</span><span class="p">(</span><span class="nx">fs</span><span class="p">,</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">)</span>
+    <span class="p">,</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="nx">D</span><span class="p">.</span><span class="nx">nodeCapsule</span><span class="p">(</span><span class="nx">fs</span><span class="p">,</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">)</span>
 <span class="p">;</span>
 
 <span class="nx">readFile</span><span class="p">(</span><span class="s1">'/etc/passwd'</span><span class="p">)</span>
