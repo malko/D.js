@@ -21,7 +21,7 @@ or using a javascript loader like [l.js](https://github.com/malko/l.js)
 example in node js wrapping the fs.readFile function to work with promise
 ```javascript
 var fs = require('fs')
-	, D = require('./D.js')
+	, D = require('d.js')
 ;
 
 // define a method that will return a promise of a file read content
@@ -43,10 +43,7 @@ readPromise('/etc/passwd')
 		,function(err){ console.log(err); }
 	)
 ;
-
 ```
-
-
 ## Addition to the Promises/A+ specs
 D.js offers a little more than the promises/A+ specification requirements here's the api:
 
@@ -58,10 +55,8 @@ promise.getStatus() // return -1 if rejected, 0 is pending and 1 if fulfilled
 promise.success(onFulfilled); // same as promise.then(onFulfilled);
 promise.error(onRejected);   // same as promise.then(undefined,onRejected);
 promise.apply(onFulfilled,onRejected);
-promise.rethrow(onRejected) // helper for onR	ejected method that rethrow the reason of the rejection
+promise.rethrow(onRejected) // helper for onRejected method that rethrow the reason of the rejection
 promise.rethrow() // see below for more info on rethrow behaviour
- 
-
 ```
 
 The **apply** method is a minor variation of the **then** method but specifically useful for promises of Array. Instead of getting the promised Array passed as a single parameter to the onFulfilled callback it will apply it to the callback so each values of the promised array will become single parameters of the callback here a code example;
@@ -70,11 +65,11 @@ The **apply** method is a minor variation of the **then** method but specificall
 var arrayPromise = D.resolved([1,2,3]); // we'll talk about resolved later
 arrayPromise.then(function(a){ /* a will contains the whole array */ })
 arrayPromise.apply(function(a,b,c){ /* a will be 1, b is 2 and c is 3 */ }
-
 ```
 
 The **rethrow** method serves two different purposes
- - if received an onRejected method it will just ensure that onRejected rethrow the error this is just an helper here's an exemple of the same behaviour without using rethrow
+- if received an onRejected method it will just ensure that onRejected rethrow the error this is just an helper here's an exemple of the same behaviour without using rethrow
+
 ```javascript
 var onRejectedResolve = function(reason){
 	console.error(reason);
@@ -108,9 +103,9 @@ promise
 		/* this success will never get called */
 	})
 ;
-
 ```
- - if no onRejected callback is given then it will behave differently. When you use a Promises/A+ library no Error is thrown outside of your promise library so it's sometimes difficult to debug. For this purpose you can use **rethrow** method that will really re-throw the error outside of the promise library. this is really useful for debugging but also to end your promise chain when you want an error to be effectively thrown.
+- if no onRejected callback is given then it will behave differently. When you use a Promises/A+ library no Error is thrown outside of your promise library so it's sometimes difficult to debug. For this purpose you can use **rethrow** method that will really re-throw the error outside of the promise library. this is really useful for debugging but also to end your promise chain when you want an error to be effectively thrown.
+
 ```javascript
 promise
 	.success(function(){
@@ -154,13 +149,12 @@ encapsulate typical node methods that wait for a callback(Err,param1,param2...) 
 ie:
 ```javascript
 var fs = require('fs')
-	, D = require('./D.js')
-	, readFile = D.nodeStyle(fs,fs.readFile)
+	, D = require('d.js')
+	, readFile = D.nodeCapsule(fs,fs.readFile)
 ;
 
 readFile('/etc/passwd')
 	.success(function(data){ console.log(data); })
 	.rethrow()
 ;
-
 ```
