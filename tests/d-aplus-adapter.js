@@ -11,8 +11,3 @@ exports.pending = function pending(){
 		,reject:d.reject
 	};
 }
-//-
-//- promisesAplusTests(exports, function (err) {
-	//- err && console.error('Error',err);
-  //- // All done; output is in the console. Or check `err` for number of failures.
-//- });
