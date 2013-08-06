@@ -16,7 +16,7 @@
     "grunt-mocha-cli": "~1.0.6"
   },
   "scripts": {
-    "test": "promises-aplus-tests  tests/d-aplus-adapter.js"
+    "test": "promises-aplus-tests  tests/d-aplus-adapter.js && grunt test"
   },
   "engines": {
     "node": ">=0.6"
