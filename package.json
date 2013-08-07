@@ -11,9 +11,10 @@
   },
   "devDependencies": {
     "promises-aplus-tests": "*",
-    "grunt": "~0.4.1",
+    "grunt": "~0.4",
     "grunt-contrib-uglify": "*",
-    "grunt-mocha-cli": "~1.0.6"
+    "grunt-mocha-cli": "~1.0",
+    "chai": "~1.7"
   },
   "scripts": {
     "test": "promises-aplus-tests  tests/d-aplus-adapter.js && grunt test"
