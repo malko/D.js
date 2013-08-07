@@ -1,4 +1,3 @@
-test
 #D.js
 D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser
 [![Build Status](https://travis-ci.org/malko/D.js.png?branch=master)](https://travis-ci.org/malko/D.js)
