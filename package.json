@@ -2,7 +2,7 @@
   "author": "Jonathan Gotti <jgotti@jgotti.org>",
   "name": "d.js",
   "description": "a tiny promise/A+ library",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "licence": "MIT",
   "main": "lib/D.js",
   "repository": {
@@ -11,11 +11,13 @@
   },
   "devDependencies": {
     "promises-aplus-tests": "*",
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "*"
+    "grunt": "~0.4",
+    "grunt-contrib-uglify": "*",
+    "grunt-mocha-cli": "~1.0",
+    "chai": "~1.7"
   },
   "scripts": {
-    "test": "promises-aplus-tests  tests/d-aplus-adapter.js"
+    "test": "promises-aplus-tests  tests/d-aplus-adapter.js && grunt test"
   },
   "engines": {
     "node": ">=0.6"
