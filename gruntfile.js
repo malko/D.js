@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			options: {
-				banner: '/* (c) Jonathan Gotti - licence: https://github.com/malko/d.js/LICENCE.txt */\n'
+				banner: '/* (c) Jonathan Gotti - licence: https://github.com/malko/d.js/LICENCE.txt @version 0.0.0*/\n'
 			},
 			build: {
 				src: 'lib/D.js',
@@ -20,15 +20,25 @@ module.exports = function(grunt) {
 			},
 			src: { options: {files: 'tests/d-src*.js'}},
 			min: { options: {files: 'tests/d-min*.js'}}
+		},
+		version: {
+			options: {
+				prefix:'@version\\s*'
+			},
+			defaults: {
+				src:['lib/D.js', 'lib/D.min.js']
+			}
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
+	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-mocha-cli');
+	grunt.loadNpmTasks('grunt-version');
 
 	// Default task(s).
-	grunt.registerTask('default', ['uglify']);
+	grunt.registerTask('default', ['build']);
 	grunt.registerTask('test', ['mochacli']);
+	grunt.registerTask('build', ['uglify','version','mochacli']);
 
 };
