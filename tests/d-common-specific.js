@@ -6,34 +6,13 @@ function resetCounters(){ resolvedCount=0; rejectedCount=0; }
 function resolve(){ resolvedCount++;}
 function reject(){ rejectedCount++;}
 function isPromise(p){ return ('then' in p) && (p.then instanceof Function); }
+function getTime(){ return (new Date).getTime(); }
 
 
 module.exports = function(D){
-	describe('D.rejected', function(){
-
-		it('should return a promise which have to be rejected async', function(done){
-			var res = D.rejected('test'),async=false;
-			expect(res).to.have.property('then');
-			expect(res.isPending()).to.be.true;
-			res.then(null, function(){
-				expect(async).to.be.true;
-				done();
-			}).rethrow();
-			async=true;
-		});
-
-		it('which should be rejected with given reason', function(done){
-			var res = D.rejected('test');
-			res.then(null, function(reason){
-				expect(reason).to.equal("test");
-				done();
-			}).rethrow();
-		});
-	});
 
 
 	describe('D.fulfilled', function(){
-
 		it('should have an alias D.resolve method',function(){
 			expect(D.fulfilled).to.eql(D.resolved);
 		});
@@ -60,32 +39,114 @@ module.exports = function(D){
 	});
 
 
-	describe('D.wait',function(){
-		it('should return a promise');
+	describe('D.rejected', function(){
 
-		it('should not be resolved before the time passed');
+		it('should return a promise which have to be rejected async', function(done){
+			var res = D.rejected('test'),async=false;
+			expect(res).to.have.property('then');
+			expect(res.isPending()).to.be.true;
+			res.then(null, function(){
+				expect(async).to.be.true;
+				done();
+			}).rethrow();
+			async=true;
+		});
+
+		it('which should be rejected with given reason', function(done){
+			var res = D.rejected('test');
+			res.then(null, function(reason){
+				expect(reason).to.equal("test");
+				done();
+			}).rethrow();
+		});
+	});
+
+
+	describe('D.wait',function(){
+		var start, p;
+		this.timeout(300);
+		it('should return a promise', function(){
+			start = getTime();
+			p = D.wait(150).success(function(){ return getTime(); }).rethrow();
+			expect(isPromise(p)).to.be.true;
+		});
+
+		it('which should not be resolved before the time passed', function(done){
+			setTimeout(function(){
+				expect(p.isPending()).to.be.true;
+				done();
+			},50);
+		});
+
+		it('and should be resolved after the time passed', function(done){
+			setTimeout(function(){
+				expect(p.isPending()).to.be.false;
+				expect(p.getStatus()).to.equal(1);
+				p.success(function(end){
+					console.log(end-start)
+					expect(end - start).to.be.at.least(150);
+				}).rethrow();
+				done();
+			},151);
+		});
+
 	});
 
 
 	describe('D.delay',function(){
-		it('should return a promise');
+		var start, p, endPromise;
+		this.timeout(300);
+		it('should return a promise', function(){
+			start = getTime();
+			p = D.delay(function(){ return 'done';}, 150);
+			expect(isPromise(p)).to.be.true;
+			endPromise = p.success(function(){ return getTime(); })//.rethrow();
+		});
 
-		it('which should resolve with value returned by fn');
+		it('which should not be resolved before the time passed', function(done){
+			setTimeout(function(){
+				expect(p.isPending()).to.be.true;
+				done();
+			},100);
+		});
 
-		it('should resolve after the requested delay is passed');
+		it('and should be resolved after the delay is passed with fn return value', function(done){
+			setTimeout(function(){
+				expect(p.isPending()).to.be.false;
+				expect(p.getStatus()).to.equal(1);
+				p.success(function(res){
+					expect(res).to.equal('done');
+				}).rethrow();
+				endPromise.success(function(end){
+					console.log(end-start)
+					expect(end - start).to.be.at.least(150);
+				}).rethrow();
+				done();
+			},151);
+		});
 	});
 
 
 	describe('D.promisify',function(){
-		it('if passed a promise should return it untouched');
-		it('should return a promise of passed value if not a promise');
+		it('if passed a promise should return the same promise object', function(){
+			var d = D(), p = d.promise;
+			expect(D.promisify(p)).to.equal(p);
+		});
+
+		it('should return a promise of passed value if not a promise', function(done){
+			var p = D.promisify('ok');
+			expect(isPromise(p)).to.be.true;
+			p.success(function(res){
+				expect(res).to.equal('ok');
+				done();
+			}).rethrow();
+		});
 	});
 
 
 	describe('D.nodeCapsule',function(){
 		//@todo describe and test this method
 	});
-
 
 	describe('D.all',function(){
 
@@ -401,6 +462,37 @@ module.exports = function(D){
 
 	});
 };
+
+
+describe('Promises',function(){
+
+	describe('promise.success',function(){
+		//@todo describe and test this method
+	});
+	describe('promise.error',function(){
+		//@todo describe and test this method
+	});
+	describe('promise.ensure',function(){
+		//@todo describe and test this method
+	});
+
+	describe('promise.apply',function(){
+		//@todo describe and test this method
+	});
+
+	describe('promise.rethrow',function(){
+		//@todo describe and test this method
+	});
+
+	describe('promise.isPending',function(){
+		//@todo describe and test this method
+	});
+
+	describe('promise.getStatus',function(){
+		//@todo describe and test this method
+	});
+});
+
 
 // tester promisify avec differentes entrées
 // tester D.all
