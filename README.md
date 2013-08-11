@@ -12,7 +12,7 @@ If you want to know more about promises/A+ you can visit this page: http://promi
 ### nodejs
 ```npm install d.js```
 ### browsers
-clone the repository or just copy the files D.js or D.min.js to your server and then include it in your pages with a classic 
+clone the repository or just copy the files D.js or D.min.js to your server and then include it in your pages with a classic
 ```<script src="D.js"></script>```
 or using a javascript loader like [l.js](https://github.com/malko/l.js)
 
@@ -54,6 +54,8 @@ promise.isPending() // return false if the promise is fulfilled or rejected, tru
 promise.getStatus() // return -1 if rejected, 0 is pending and 1 if fulfilled
 promise.success(onFulfilled); // same as promise.then(onFulfilled);
 promise.error(onRejected);   // same as promise.then(undefined,onRejected);
+promise.otherwise(onRejected);   // alias of promise.error();
+promise.ensure(onRejected);   // cleanup method which will be always executed regardless fulfillment or rejection
 promise.apply(onFulfilled,onRejected);
 promise.rethrow(onRejected) // helper for onRejected method that rethrow the reason of the rejection
 promise.rethrow() // see below for more info on rethrow behaviour
@@ -95,8 +97,8 @@ promise
 	})
 ;
 
-// third example using the same errorHandler and rethrow. 
-// This does exactly the same thing as second example 
+// third example using the same errorHandler and rethrow.
+// This does exactly the same thing as second example
 promise
 	.rethrow(onRejectedResolve)
 	.success(function(a){
@@ -112,9 +114,9 @@ promise
 		throw "there's no good reason";
 	})
 	.error(function(reason){
-		console.error(reason); 
-		throw reason; 
-		/* 
+		console.error(reason);
+		throw reason;
+		/*
 		even throwing again the reason won't make the reason visible outside the promise library
 		the error will go to the next error handler or simply be ignored if no error handler exists
 		*/
@@ -124,7 +126,7 @@ promise
 ;
 ```
 
-## D properties and methods 
+## D properties and methods
 
 #### D() or D.defer()
 return a __deferred__ object with **promise** as a property and **resolve**, **fulfill** (alias of resolve), **reject** as methods

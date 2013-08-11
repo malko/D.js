@@ -6,12 +6,12 @@ function resetCounters(){ resolvedCount=0; rejectedCount=0; }
 function resolve(){ resolvedCount++;}
 function reject(){ rejectedCount++;}
 function isPromise(p){ return ('then' in p) && (p.then instanceof Function); }
-function getTime(){ return (new Date).getTime(); }
+function getTime(){ return (new Date()).getTime(); }
 
 
 module.exports = function(D){
 
-
+describe('D methods', function(){
 	describe('D.fulfilled', function(){
 		it('should have an alias D.resolve method',function(){
 			expect(D.fulfilled).to.eql(D.resolved);
@@ -83,7 +83,6 @@ module.exports = function(D){
 				expect(p.isPending()).to.be.false;
 				expect(p.getStatus()).to.equal(1);
 				p.success(function(end){
-					console.log(end-start)
 					expect(end - start).to.be.at.least(150);
 				}).rethrow();
 				done();
@@ -100,7 +99,7 @@ module.exports = function(D){
 			start = getTime();
 			p = D.delay(function(){ return 'done';}, 150);
 			expect(isPromise(p)).to.be.true;
-			endPromise = p.success(function(){ return getTime(); })//.rethrow();
+			endPromise = p.success(function(){ return getTime(); }).rethrow();
 		});
 
 		it('which should not be resolved before the time passed', function(done){
@@ -118,7 +117,6 @@ module.exports = function(D){
 					expect(res).to.equal('done');
 				}).rethrow();
 				endPromise.success(function(end){
-					console.log(end-start)
 					expect(end - start).to.be.at.least(150);
 				}).rethrow();
 				done();
@@ -145,6 +143,42 @@ module.exports = function(D){
 
 
 	describe('D.nodeCapsule',function(){
+
+		var nodeStyleFn = function(){
+			var args = [].slice.apply(arguments), cb = args.pop();
+			if( args[0] === false){
+				args = ['error'];
+			}else{
+				args.splice(0,0,undefined);
+			}
+			cb.apply(undefined, args);
+		};
+		var nodeCapsuled = D.nodeCapsule(nodeStyleFn);
+
+		it('should transform a typical node async function to return a promise', function(){
+			expect(isPromise(nodeCapsuled())).to.be.true;
+		});
+
+		it('returned promised should resolve with callback single parameter as fulfillment value when there is only one parameter',function(done){
+			nodeCapsuled(1).success(function(v){
+				expect(v).to.equal(1);
+				done();
+			}).rethrow();
+		});
+
+		it('returned promised should resolve with callback list of parameters as fulfillment value when multiple parameters',function(done){
+			nodeCapsuled(1,2,3).success(function(v){
+				expect(v).to.eql([1,2,3]);
+				done();
+			}).rethrow();
+		});
+
+		it('returned promise should be rejected with given error parameter as the reason',function(done){
+			nodeCapsuled(false,1,2,3).error(function(reason){
+				expect(reason).to.be.equal('error');
+				done();
+			});
+		})
 		//@todo describe and test this method
 	});
 
@@ -226,7 +260,7 @@ module.exports = function(D){
 						done();
 					}
 				).rethrow();
-				process.nextTick(function(){
+				D.nextTick(function(){
 					p1.resolve().promise.then(resolve,reject);
 					p2.resolve().promise.then(resolve,reject);
 					p3.resolve().promise.then(resolve,reject);
@@ -269,7 +303,7 @@ module.exports = function(D){
 					expect(rejectedCount).to.equal(1);
 					done();
 				}).rethrow();
-				process.nextTick(function(){
+				D.nextTick(function(){
 					p1.resolve().promise.then(resolve,reject);
 					p2.reject().promise.then(reject,reject);
 					p3.resolve().promise.then(resolve,reject);
@@ -282,7 +316,7 @@ module.exports = function(D){
 					expect(reason).to.equal("reject 2");
 					done();
 				}).rethrow();
-				process.nextTick(function(){
+				D.nextTick(function(){
 					p2.reject("reject 2");
 					p1.reject("reject 1");
 				});
@@ -303,7 +337,7 @@ module.exports = function(D){
 						for( var i = 0; i < 3; i++ ){
 							expect(isPromise(res[i])).to.be.true;
 						}
-						expect(res).to.eql([p1,p2,p3])
+						expect(res).to.eql([p1,p2,p3]);
 						done();
 					})
 					.rethrow()
@@ -383,7 +417,7 @@ module.exports = function(D){
 						done();
 					}
 				).rethrow();
-				process.nextTick(function(){
+				D.nextTick(function(){
 					p1.resolve().promise.then(resolve,reject);
 					p2.resolve().promise.then(resolve,reject);
 					p3.resolve().promise.then(resolve,reject);
@@ -434,7 +468,7 @@ module.exports = function(D){
 				})
 				.rethrow();
 
-				process.nextTick(function(){
+				D.nextTick(function(){
 					p1.reject().promise.then(resolve,reject);
 					p2.resolve().promise.then(resolve,reject);
 					p3.reject().promise.then(resolve,reject);
@@ -452,7 +486,7 @@ module.exports = function(D){
 					})
 						.rethrow();
 
-					process.nextTick(function(){
+					D.nextTick(function(){
 						p1.reject().promise.then(resolve,reject);
 						p2.resolve().promise.then(resolve,reject);
 						p3.reject().promise.then(resolve,reject);
@@ -461,37 +495,173 @@ module.exports = function(D){
 		});
 
 	});
-};
+});
 
 
 describe('Promises',function(){
 
 	describe('promise.success',function(){
-		//@todo describe and test this method
-	});
-	describe('promise.error',function(){
-		//@todo describe and test this method
-	});
-	describe('promise.ensure',function(){
-		//@todo describe and test this method
+
+		it('should be resolved with fulfillment value',function(done){
+			var d = D();
+			d.resolve('ok');
+			d.promise.success(function(v){
+				expect(v).to.be.equal('ok');
+				done();
+			});
+		});
+
+		it('should return a new promise',function(done){
+			var d = D(),x={o:'k'},X={o:'k'};
+			d.resolve('ok');
+			var p = d.promise.success(function(){
+				expect(p).to.be.not.equal(d.promise);
+				done();
+			}).rethrow();
+		});
 	});
 
-	describe('promise.apply',function(){
-		//@todo describe and test this method
+
+	describe('promise.error',function(){
+
+		it('should have an alias method otherwise',function(){
+			var p = D().promise;
+			expect(p).to.have.property('otherwise');
+			expect(p.otherwise).to.equal(p.error);
+		});
+
+		it('should be rejected with given reason',function(done){
+			var d = D();
+			d.reject('error');
+			d.promise.error(function(v){
+				expect(v).to.be.equal('error');
+				done();
+			});
+		});
+
+		it('should return a new promise',function(done){
+			var d = D(),x={o:'k'},X={o:'k'};
+			d.reject('ok');
+			var p = d.promise.error(function(){
+				expect(p).to.be.not.equal(d.promise);
+				done();
+			}).rethrow();
+		});
 	});
+
+
+	describe('promise.ensure',function(){
+
+		var p1 = D.fulfilled(1), p2 = D.rejected('error');
+		it('should be called when promise is resolved',function(done){
+			p1.ensure(done);
+		});
+
+		it('should be called when promise is rejected',function(done){
+			p2.ensure(done);
+		});
+
+		it('should return the same promise untouched',function(done){
+			var p = D.resolved('ok');
+			var p2 = p.ensure(function(){
+				p.tset = 1;
+				expect(p).to.be.equal(p2);
+				done();
+			});
+		});
+
+		it('should not change the resolution value',function(done){
+			D.resolved('ok')
+				.ensure(function(){return 'nok';})
+				.success(function(v){
+					expect(v).to.be.eql('ok');
+					done();
+				})
+			;
+		});
+
+		it('should not change the rejection reason',function(done){
+			D.rejected('error')
+				.ensure(function(){return 'nok';})
+				.error(function(v){
+					expect(v).to.be.eql('error');
+					done();
+				})
+			;
+		});
+	});
+
+
+	describe('promise.apply',function(){
+
+		it('should have an alias method spread',function(){
+			var p = D().promise;
+			expect(p).to.have.property('spread');
+			expect(p.spread).to.equal(p.apply);
+		});
+
+		it('should call onFulfill callback with list of parameters instead of an array as single parameter if fulfilled with an array');
+		it('should call onFulfill callback with a single parameter if fulfilled value is not an array');
+	});
+
 
 	describe('promise.rethrow',function(){
 		//@todo describe and test this method
+		
 	});
+
 
 	describe('promise.isPending',function(){
-		//@todo describe and test this method
+
+		var d1 = D(), d2 = D();
+		it('should return true when promise is pending',function(){
+			expect(d1.promise.isPending()).to.be.true;
+			expect(d2.promise.isPending()).to.be.true;
+		});
+
+		it('should return false when promise is resolved',function(done){
+			d1.resolve('ok').promise.success(function(){
+				expect(d1.promise.isPending()).to.be.false;
+				done();
+			});
+		});
+
+		it('should return false when promise is rejected',function(done){
+			d2.reject('nok').promise.error(function(){
+				expect(d2.promise.isPending()).to.be.false;
+				done();
+			});
+		});
 	});
 
+
 	describe('promise.getStatus',function(){
-		//@todo describe and test this method
+
+		var d1 = D(), d2 = D();
+		it('should return 0 when promise is pending',function(){
+			expect(d1.promise.getStatus()).to.be.equal(0);
+			expect(d2.promise.getStatus()).to.be.equal(0);
+		});
+
+		it('should return 1 when promise is resolved',function(done){
+			d1.resolve('ok').promise.success(function(){
+				expect(d1.promise.getStatus()).to.be.equal(1);
+				done();
+			});
+		});
+
+		it('should return -1 when promise is rejected',function(done){
+			d2.reject('nok').promise.error(function(){
+				expect(d2.promise.getStatus()).to.be.equal(-1);
+				done();
+			});
+		});
 	});
 });
+
+};
+
+
 
 
 // tester promisify avec differentes entrées
