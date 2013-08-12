@@ -55,12 +55,14 @@ promise.getStatus() // return -1 if rejected, 0 is pending and 1 if fulfilled
 promise.success(onFulfilled); // same as promise.then(onFulfilled);
 promise.error(onRejected);   // same as promise.then(undefined,onRejected);
 promise.otherwise(onRejected);   // alias of promise.error();
+promise.apply(onFulfilled,onRejected); // same as then but when received an array as promise resolution value will pass each array entry as single parameter of the onFulfill callback
+promise.spread(onFulfilled,onRejected); // alias of apply
 promise.ensure(onRejected);   // cleanup method which will be always executed regardless fulfillment or rejection
-promise.apply(onFulfilled,onRejected);
+promise.nodify(nodeStyleCallback); // take a single callback which wait for an error as first parameter. other resolution values are passed as with the apply/spread method
 promise.rethrow(onRejected) // helper for onRejected method that rethrow the reason of the rejection
 promise.rethrow() // see below for more info on rethrow behaviour
 ```
-
+#### promise.apply / promise.spread:
 The **apply** method is a minor variation of the **then** method especially useful for promises of Array. Instead of passing an Array as the first parameter of onFulfulled, it will pass each element of the Array as a different parameter. Here is an example:
 
 ```javascript
@@ -68,7 +70,23 @@ var arrayPromise = D.resolved([1,2,3]); // we'll talk about resolved later
 arrayPromise.then(function(a){ /* a will contains the whole array */ })
 arrayPromise.apply(function(a,b,c){ /* a will be 1, b is 2 and c is 3 */ }
 ```
-
+#### promise.ensure
+The **ensure** method will return the same promise untouched. It is used for cleanup tasks and the given callback will be called regardless of the promise fulfillment or rejection.
+It won't receive any parameter and the returned value won't serve to fulfill a new promise.
+#### promise.nodify
+The **nodify** method is the counterpart of the **D.nodeCapsule** method. it take a single node style callback as parameter which wait for an Error as first parameter if any.
+If the promise is fulfilled then the first parameter will be undefined and other promises values will be applied as with the **promise.apply** method.
+If the promise is rejected then the first parameter will be the reason of the rejection and other parameters will be ommited.
+```javascript
+promise.nodify(function(err, arg1, arg2, arg3){
+	if(err){
+		// promise is rejected treat the error or rethrow it
+	} else {
+		// promise is fulfilled do some work with other arguments
+	}
+});
+```
+#### promise.rethrow
 The **rethrow** method serves two different purposes
 - When it receives an onRejected method, it will ensure that onRejected rethrows the error. Here's an exemple of the same behaviour without using rethrow
 
