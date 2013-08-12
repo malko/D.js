@@ -12,15 +12,6 @@ module.exports = function(grunt) {
 				dest: 'lib/D.min.js'
 			}
 		},
-		mochacli: {
-			options: {
-				require: ['chai'],
-				reporter: 'spec',
-				timeout: 300
-			},
-			src: { options: {files: 'tests/d-src*.js'}},
-			min: { options: {files: 'tests/d-min*.js'}}
-		},
 		version: {
 			options: {
 				prefix:'@version\\s*'
@@ -28,6 +19,23 @@ module.exports = function(grunt) {
 			defaults: {
 				src:['lib/D.js', 'lib/D.min.js']
 			}
+		},
+		jscoverage: {
+			options: {
+				inputDirectory: 'lib',
+				outputDirectory: 'lib-cov',
+				highlight:true
+			}
+		},
+		mochacli: {
+			options: {
+				require: ['chai'],
+				reporter: 'spec',
+				timeout: 300
+			},
+			src: { options: {files: 'tests/d-src*.js'}},
+			min: { options: {files: 'tests/d-min*.js'}},
+			cov: { options: {files: 'tests/d-cov*.js'}}
 		}
 	});
 
@@ -35,6 +43,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-mocha-cli');
 	grunt.loadNpmTasks('grunt-version');
+	grunt.loadNpmTasks("grunt-jscoverage");
 
 	// Default task(s).
 	grunt.registerTask('default', ['build']);

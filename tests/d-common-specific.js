@@ -600,14 +600,70 @@ describe('Promises',function(){
 			expect(p.spread).to.equal(p.apply);
 		});
 
-		it('should call onFulfill callback with list of parameters instead of an array as single parameter if fulfilled with an array');
-		it('should call onFulfill callback with a single parameter if fulfilled value is not an array');
+		it('should call onFulfill callback with list of parameters instead of an array as single parameter if fulfilled with an array', function(done){
+			D.fulfilled([1,2,3]).apply(function(a,b,c){
+				expect(a).to.be.equal(1);
+				expect(b).to.be.equal(2);
+				expect(c).to.be.equal(3);
+				done();
+			}).rethrow(done);
+		});
+
+		it('should call onFulfill callback with a single parameter if fulfilled value is not an array', function(done){
+			D.fulfilled(1).apply(function(a){
+				expect(a).to.be.equal(1);
+				done();
+			}).rethrow(done);
+		});
 	});
 
 
 	describe('promise.rethrow',function(){
-		//@todo describe and test this method
-		
+
+		it("should rethrow the error even if onRejected callback doesn't throw an error",function(done){
+			D.rejected('error')
+				.rethrow(function(){
+					return 1;
+				})
+				.error(function(e){
+					expect(e).to.be.equal('error')
+					done();
+				})
+			;
+		});
+
+		it('without any parameter should rethrow the error to the ouside world at nextick (untestable)');
+	});
+
+
+	describe('promise.nodify',function(){
+
+		it('should call onFulfilled with empty first parameter (error) and other values as following parameters like apply',function(done){
+			D.resolved([1,2,3]).nodify(function(err,a,b,c){
+				expect(err).to.be.undefined;
+				expect(a).to.be.equal(1);
+				expect(b).to.be.equal(2);
+				expect(c).to.be.equal(3);
+				done();
+			}).rethrow(done);
+		});
+
+		it('should call onFulfilled with empty first parameter (error) and other single value as second parameter like apply',function(done){
+			D.resolved(4).nodify(function(err,a){
+				expect(err).to.be.undefined;
+				expect(a).to.be.equal(4);
+				done();
+			}).rethrow(done);
+		});
+
+		it('should call onRejected with the reason as first error parameter',function(done){
+			D.rejected('error').nodify(function(err,a,b,c){
+				expect(err).to.be.equal('error');
+				expect(arguments.length).to.be.equal(1);
+				done();
+			}).rethrow(done);
+		});
+
 	});
 
 
