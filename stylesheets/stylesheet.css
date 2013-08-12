@@ -47,10 +47,6 @@ table {
   border-spacing: 0;
 }
 
-a:focus {
-  outline: none;
-}
-
 /*******************************************************************************
 Theme Styles
 *******************************************************************************/
@@ -272,7 +268,7 @@ Full-Width Styles
 
 .inner {
   position: relative;
-  max-width: 840px;
+  max-width: 640px;
   padding: 20px 10px;
   margin: 0 auto;
 }
@@ -369,8 +365,6 @@ Full-Width Styles
 #main_content {
   padding-top: 40px;
 }
-
-#main_content img{ width:auto; float:none; vertical-align:middle; border:none;box-shadow:none;}
 
 #footer_wrap {
   background: #212121;
