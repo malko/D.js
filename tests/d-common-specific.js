@@ -83,7 +83,7 @@ describe('D methods', function(){
 				expect(p.isPending()).to.be.false;
 				expect(p.getStatus()).to.equal(1);
 				p.success(function(end){
-					expect(end - start).to.be.at.least(150);
+					expect(end - start).to.be.at.least(149);
 				}).rethrow();
 				done();
 			},151);
@@ -117,7 +117,7 @@ describe('D methods', function(){
 					expect(res).to.equal('done');
 				}).rethrow();
 				endPromise.success(function(end){
-					expect(end - start).to.be.at.least(150);
+					expect(end - start).to.be.at.least(149);
 				}).rethrow();
 				done();
 			},151);
