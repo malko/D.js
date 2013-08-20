@@ -1,2 +1,4 @@
 node_modules
 gh-pages
+.idea
+atlassian-ide-plugin.xml
