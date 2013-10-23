@@ -10,7 +10,7 @@
     "url": "git://github.com:malko/D.js.git"
   },
   "devDependencies": {
-    "promises-aplus-tests": "*",
+    "promises-aplus-tests": "1.x",
     "grunt": "~0.4",
     "grunt-contrib-uglify": "*",
     "grunt-mocha-cli": "~1.0",
