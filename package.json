@@ -19,7 +19,7 @@
     "grunt-jscoverage": "0.0.3"
   },
   "scripts": {
-    "test": "node_modules/.bin/promises-aplus-tests lib/D.js && grunt test"
+    "test": "promises-aplus-tests lib/D.js && grunt test"
   },
   "engines": {
     "node": ">=0.6"
