@@ -10,7 +10,7 @@
     "url": "git://github.com:malko/D.js.git"
   },
   "devDependencies": {
-    "promises-aplus-tests": "1.x",
+    "promises-aplus-tests": "2.x",
     "grunt": "~0.4",
     "grunt-contrib-uglify": "*",
     "grunt-mocha-cli": "~1.0",
@@ -19,7 +19,7 @@
     "grunt-jscoverage": "0.0.3"
   },
   "scripts": {
-    "test": "promises-aplus-tests tests/d-aplus-adapter.js && grunt test"
+    "test": "node_modules/.bin/promises-aplus-tests lib/D.js && grunt test"
   },
   "engines": {
     "node": ">=0.6"
