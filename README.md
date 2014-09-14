@@ -159,7 +159,7 @@ return a rejected promise with given __reason__
 #### D.wait(time)
 return a promise that will resolve in __time__ ms
 #### D.delay(fn,delay)
-return a promise for the return value of __fn__ which will be resolved in __delay__ ms
+return a promise for the return value of __fn__ which will be resolved in __delay__ ms (if fn is not a function it will be used as the resolved value)
 #### D.promisify(value)
 internal method exposed that will return a resolved promised of value if value isn't a promise
 #### D.all(listOfPromise), D.all(promise0,promise1,promise....)

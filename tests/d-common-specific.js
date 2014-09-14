@@ -1,4 +1,6 @@
 /*global describe, it*/
+/*jshint -W024, -W101*/
+"use strict";
 var expect = require('chai').expect;
 
 var resolvedCount=0, rejectedCount=0;
@@ -122,6 +124,20 @@ describe('D methods', function(){
 				done();
 			},151);
 		});
+
+		it('or should be resolved after the delay is passed with fn as a direct value', function(done){
+			var p = D.delay('ok',100);
+			setTimeout(function(){
+				expect(p.isPending()).to.be.true;
+			},50);
+			setTimeout(function(){
+				expect(p.isPending()).to.be.false;
+				done();
+			},110);
+			p.then(function(res){
+				expect(res).to.eql('ok');
+			});
+		});
 	});
 
 
@@ -178,7 +194,7 @@ describe('D methods', function(){
 				expect(reason).to.be.equal('error');
 				done();
 			});
-		})
+		});
 		//@todo describe and test this method
 	});
 
@@ -512,7 +528,7 @@ describe('Promises',function(){
 		});
 
 		it('should return a new promise',function(done){
-			var d = D(),x={o:'k'},X={o:'k'};
+			var d = D();
 			d.resolve('ok');
 			var p = d.promise.success(function(){
 				expect(p).to.be.not.equal(d.promise);
@@ -540,7 +556,7 @@ describe('Promises',function(){
 		});
 
 		it('should return a new promise',function(done){
-			var d = D(),x={o:'k'},X={o:'k'};
+			var d = D();
 			d.reject('ok');
 			var p = d.promise.error(function(){
 				expect(p).to.be.not.equal(d.promise);
@@ -626,7 +642,7 @@ describe('Promises',function(){
 					return 1;
 				})
 				.error(function(e){
-					expect(e).to.be.equal('error')
+					expect(e).to.be.equal('error');
 					done();
 				})
 			;
@@ -657,7 +673,7 @@ describe('Promises',function(){
 		});
 
 		it('should call onRejected with the reason as first error parameter',function(done){
-			D.rejected('error').nodify(function(err,a,b,c){
+			D.rejected('error').nodify(function(err){
 				expect(err).to.be.equal('error');
 				expect(arguments.length).to.be.equal(1);
 				done();
@@ -716,10 +732,3 @@ describe('Promises',function(){
 });
 
 };
-
-
-
-
-// tester promisify avec differentes entrées
-// tester D.all
-// ajouter une methode complete qui prendrait une fonction nodeStyled-Dide.unix.full.screen.enabled=true
