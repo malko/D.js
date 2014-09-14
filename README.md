@@ -1,5 +1,5 @@
 #D.js
-D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser
+D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser (tested in ie7+, firefox and chrome)
 [![Build Status](https://travis-ci.org/malko/D.js.png?branch=master)](https://travis-ci.org/malko/D.js)
 
 If you want to know more about promises/A+ you can visit this page: http://promises-aplus.github.io/promises-spec/
@@ -164,8 +164,10 @@ return a promise for the return value of __fn__ which will be resolved in __dela
 internal method exposed that will return a resolved promised of value if value isn't a promise
 #### D.all(listOfPromise), D.all(promise0,promise1,promise....)
 take a list of promise as single Array or as list or parameters and return a promise that will resolved only when all given promised are resolved. the promise will received given promises values as parameters
-#### D.resolveAll(listOfPromise), D.all(promise0,promise1,promise....)
+#### D.resolveAll(listOfPromise), D.resolveAll(promise0,promise1,promise....)
 take a list of promise as single Array or as list or parameters and return an always fulfilled promise of array<promise> list of promises/values regardless of their fulfilled or rejected resolution.
+#### D.sequence(listOfFunction), D.sequence(fn0,fn1,fn....)
+take a list of function to execute in order passing results of one to the other and return a promised of the last returned value. will be rejected if any of the function throw an error. as a convenience, it can also receive promises or direct values instead of functions in which case they will be considered as returned value
 #### D.nodeCapsule(fn), D.nodeCapsule(subject,fn)
 encapsulate typical node methods that wait for a callback(Err,param1,param2...) as last parameters and return the wrapped method which will return a promise of response usable with then, succes, ...
 ie:

@@ -9,7 +9,7 @@ function resolve(){ resolvedCount++;}
 function reject(){ rejectedCount++;}
 function isPromise(p){ return ('then' in p) && (p.then instanceof Function); }
 function getTime(){ return (new Date()).getTime(); }
-
+function plus(a){ return a+a;}
 
 module.exports = function(D){
 
@@ -508,6 +508,101 @@ describe('D methods', function(){
 						p3.reject().promise.then(resolve,reject);
 					});
 			});
+		});
+
+	});
+
+
+	describe('D.sequence',function(){
+
+		it('should accept a single array of function as parameter', function(done){
+			D.sequence([function(){ return 1;},plus,plus])
+				.then(function(res){
+					expect(res).to.eql(4);
+					done();
+				})
+				.rethrow()
+			;
+		});
+
+		it('should accept a single array of function as parameter', function(done){
+			D.sequence([function(){ return 1;},plus,plus])
+				.then(function(res){
+					expect(res).to.eql(4);
+					done();
+				})
+				.rethrow()
+			;
+		});
+
+		it('should accept a list of function as parameters', function(done){
+			D.sequence(function(){ return 1;},plus,plus)
+				.then(function(res){
+					expect(res).to.eql(4);
+					done();
+				})
+				.rethrow()
+			;
+		});
+
+		it('should resolved if no arguments are passed', function(done){
+			D.sequence()
+				.then(function(){
+					done();
+				})
+				.rethrow()
+			;
+		});
+
+		it('should also accept values or promises instead of functions', function(done){
+			D.sequence(D.resolved(1), plus, plus)
+				.then(function(res){
+					expect(res).to.eql(4);
+					D.sequence(1, plus, plus, plus)
+						.then(function(res){
+							expect(res).to.eql(8);
+							done();
+						})
+						.rethrow()
+					;
+				})
+				.rethrow()
+			;
+		});
+
+		it('should be rejected if an error is thrown by one of the given function',function(done){
+			D.sequence(function(){ return 1;}, plus, function(){ throw 'aie';}, plus)
+				.then(null, function(err){
+					expect(err).to.eql("aie");
+					done();
+				})
+				.rethrow()
+			;
+		});
+
+		it('should execute the sequence in order and pass result to following function',function(done){
+			D.sequence(
+					function(){ return 1;}
+					, function(res){
+						expect(res).to.eql(1);
+						return 1;
+					}
+					, D.delay(2,50)
+					, function(res){
+						expect(res).to.eql(2);
+						return 3;
+					}
+					, function(res){
+						expect(res).to.eql(3);
+						return 4;
+					}
+				)
+				.then(function(res){
+					expect(res).to.eql(4);
+					done();
+				})
+				.rethrow()
+			;
 		});
 
 	});
