@@ -164,6 +164,8 @@ return a promise for the return value of __fn__ which will be resolved in __dela
 internal method exposed that will return a resolved promised of value if value isn't a promise
 #### D.all(listOfPromise), D.all(promise0,promise1,promise....)
 take a list of promise as single Array or as list or parameters and return a promise that will resolved only when all given promised are resolved. the promise will received given promises values as parameters
+#### D.resolveAll(listOfPromise), D.all(promise0,promise1,promise....)
+take a list of promise as single Array or as list or parameters and return an always fulfilled promise of array<promise> list of promises/values regardless of their fulfilled or rejected resolution.
 #### D.nodeCapsule(fn), D.nodeCapsule(subject,fn)
 encapsulate typical node methods that wait for a callback(Err,param1,param2...) as last parameters and return the wrapped method which will return a promise of response usable with then, succes, ...
 ie:
