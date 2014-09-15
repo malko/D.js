@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="D.js : tiny promise/A+ implementation" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="D.js : tiny promise/A+ implementation">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -34,12 +34,12 @@
         <h1>
 <a name="djs" class="anchor" href="#djs"><span class="octicon octicon-link"></span></a>D.js</h1>
 
-<p>D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser
-<a href="https://travis-ci.org/malko/D.js"><img src="https://travis-ci.org/malko/D.js.png?branch=master" alt="Build Status" style="max-width:100%;"></a></p>
+<p>D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser (tested in ie7+, firefox and chrome)
+<a href="https://travis-ci.org/malko/D.js"><img src="https://travis-ci.org/malko/D.js.png?branch=master" alt="Build Status"></a></p>
 
 <p>If you want to know more about promises/A+ you can visit this page: <a href="http://promises-aplus.github.io/promises-spec/">http://promises-aplus.github.io/promises-spec/</a>
 <a href="http://promises-aplus.github.com/promises-spec">
-    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" alt="Promises/A+ logo" title="Promises/A+ 1.0 compliant" align="right" style="max-width:100%;"></a></p>
+    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" alt="Promises/A+ logo" title="Promises/A+ 1.0 compliant" align="right"></a></p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>installation</h2>
@@ -61,7 +61,7 @@ or using a javascript loader like <a href="https://github.com/malko/l.js">l.js</
 
 <p>example in node js wrapping the fs.readFile function to work with promise</p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
     <span class="p">,</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'d.js'</span><span class="p">)</span>
 <span class="p">;</span>
 
@@ -96,7 +96,7 @@ or using a javascript loader like <a href="https://github.com/malko/l.js">l.js</
 
 <p>In addition to the unique <strong>then</strong> method required by the specifications, D.js supports the following methods for each promise:</p>
 
-<div class="highlight"><pre><span class="nx">promise</span><span class="p">.</span><span class="nx">isPending</span><span class="p">()</span> <span class="c1">// return false if the promise is fulfilled or rejected, true otherwise</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">promise</span><span class="p">.</span><span class="nx">isPending</span><span class="p">()</span> <span class="c1">// return false if the promise is fulfilled or rejected, true otherwise</span>
 <span class="nx">promise</span><span class="p">.</span><span class="nx">getStatus</span><span class="p">()</span> <span class="c1">// return -1 if rejected, 0 is pending and 1 if fulfilled</span>
 <span class="nx">promise</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">onFulfilled</span><span class="p">);</span> <span class="c1">// same as promise.then(onFulfilled);</span>
 <span class="nx">promise</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">onRejected</span><span class="p">);</span>   <span class="c1">// same as promise.then(undefined,onRejected);</span>
@@ -114,7 +114,7 @@ or using a javascript loader like <a href="https://github.com/malko/l.js">l.js</
 
 <p>The <strong>apply</strong> method is a minor variation of the <strong>then</strong> method especially useful for promises of Array. Instead of passing an Array as the first parameter of onFulfulled, it will pass each element of the Array as a different parameter. Here is an example:</p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">arrayPromise</span> <span class="o">=</span> <span class="nx">D</span><span class="p">.</span><span class="nx">resolved</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// we'll talk about resolved later</span>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">arrayPromise</span> <span class="o">=</span> <span class="nx">D</span><span class="p">.</span><span class="nx">resolved</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// we'll talk about resolved later</span>
 <span class="nx">arrayPromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span> <span class="cm">/* a will contains the whole array */</span> <span class="p">})</span>
 <span class="nx">arrayPromise</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">c</span><span class="p">){</span> <span class="cm">/* a will be 1, b is 2 and c is 3 */</span> <span class="p">}</span>
 </pre></div>
@@ -132,7 +132,7 @@ It won't receive any parameter and the returned value won't serve to fulfill a n
 If the promise is fulfilled then the first parameter will be undefined and other promises values will be applied as with the <strong>promise.apply</strong> method.
 If the promise is rejected then the first parameter will be the reason of the rejection and other parameters will be ommited.</p>
 
-<div class="highlight"><pre><span class="nx">promise</span><span class="p">.</span><span class="nx">nodify</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">,</span> <span class="nx">arg3</span><span class="p">){</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">promise</span><span class="p">.</span><span class="nx">nodify</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">,</span> <span class="nx">arg3</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
         <span class="c1">// promise is rejected treat the error or rethrow it</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -148,7 +148,7 @@ If the promise is rejected then the first parameter will be the reason of the re
 
 <ul>
 <li>When it receives an onRejected method, it will ensure that onRejected rethrows the error. Here's an exemple of the same behaviour without using rethrow</li>
-</ul><div class="highlight"><pre><span class="kd">var</span> <span class="nx">onRejectedResolve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">reason</span><span class="p">){</span>
+</ul><div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">onRejectedResolve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">reason</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">reason</span><span class="p">);</span>
     <span class="k">return</span> <span class="s1">'resolvedvalue'</span><span class="p">;</span>
 <span class="p">}</span>
@@ -184,7 +184,7 @@ If the promise is rejected then the first parameter will be the reason of the re
 
 <ul>
 <li>If no onRejected callback is given, it will behave differently. When you use a Promises/A+ library no Error is thrown outside of your promise library so it's sometimes difficult to debug. For this purpose you can use the <strong>rethrow</strong> method that will really re-throw the error outside of the promise library. this is really useful for debugging but also to end your promise chain when you want an error to be effectively thrown.</li>
-</ul><div class="highlight"><pre><span class="nx">promise</span>
+</ul><div class="highlight highlight-javascript"><pre><span class="nx">promise</span>
     <span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">throw</span> <span class="s2">"there's no good reason"</span><span class="p">;</span>
     <span class="p">})</span>
@@ -237,7 +237,7 @@ If the promise is rejected then the first parameter will be the reason of the re
 <h4>
 <a name="ddelayfndelay" class="anchor" href="#ddelayfndelay"><span class="octicon octicon-link"></span></a>D.delay(fn,delay)</h4>
 
-<p>return a promise for the return value of <strong>fn</strong> which will be resolved in <strong>delay</strong> ms</p>
+<p>return a promise for the return value of <strong>fn</strong> which will be resolved in <strong>delay</strong> ms (if fn is not a function it will be used as the resolved value)</p>
 
 <h4>
 <a name="dpromisifyvalue" class="anchor" href="#dpromisifyvalue"><span class="octicon octicon-link"></span></a>D.promisify(value)</h4>
@@ -250,12 +250,22 @@ If the promise is rejected then the first parameter will be the reason of the re
 <p>take a list of promise as single Array or as list or parameters and return a promise that will resolved only when all given promised are resolved. the promise will received given promises values as parameters</p>
 
 <h4>
+<a name="dresolvealllistofpromise-dresolveallpromise0promise1promise" class="anchor" href="#dresolvealllistofpromise-dresolveallpromise0promise1promise"><span class="octicon octicon-link"></span></a>D.resolveAll(listOfPromise), D.resolveAll(promise0,promise1,promise....)</h4>
+
+<p>take a list of promise as single Array or as list or parameters and return an always fulfilled promise of array list of promises/values regardless of their fulfilled or rejected resolution.</p>
+
+<h4>
+<a name="dsequencelistoffunction-dsequencefn0fn1fn" class="anchor" href="#dsequencelistoffunction-dsequencefn0fn1fn"><span class="octicon octicon-link"></span></a>D.sequence(listOfFunction), D.sequence(fn0,fn1,fn....)</h4>
+
+<p>take a list of function to execute in order passing results of one to the other and return a promised of the last returned value. will be rejected if any of the function throw an error. as a convenience, it can also receive promises or direct values instead of functions in which case they will be considered as returned value</p>
+
+<h4>
 <a name="dnodecapsulefn-dnodecapsulesubjectfn" class="anchor" href="#dnodecapsulefn-dnodecapsulesubjectfn"><span class="octicon octicon-link"></span></a>D.nodeCapsule(fn), D.nodeCapsule(subject,fn)</h4>
 
 <p>encapsulate typical node methods that wait for a callback(Err,param1,param2...) as last parameters and return the wrapped method which will return a promise of response usable with then, succes, ...
 ie:</p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)</span>
     <span class="p">,</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'d.js'</span><span class="p">)</span>
     <span class="p">,</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="nx">D</span><span class="p">.</span><span class="nx">nodeCapsule</span><span class="p">(</span><span class="nx">fs</span><span class="p">,</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">)</span>
 <span class="p">;</span>
