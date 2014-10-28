@@ -1,7 +1,7 @@
 #D.js
 D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser (tested in ie7+, firefox and chrome)
 [![Build Status](https://travis-ci.org/malko/D.js.png?branch=master)](https://travis-ci.org/malko/D.js)
-
+[![Codacy Badge](https://www.codacy.com/project/badge/7940707cc94b4a919eaa75b5054b63f4)](https://www.codacy.com/public/malko/D.js.git)
 If you want to know more about promises/A+ you can visit this page: http://promises-aplus.github.io/promises-spec/
 <a href="http://promises-aplus.github.com/promises-spec">
     <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png"
