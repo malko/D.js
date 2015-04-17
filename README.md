@@ -12,13 +12,14 @@ If you want to know more about promises/A+ you can visit this page: http://promi
 ### nodejs
 ```npm install d.js```
 ### browsers
-Now D.js is installable through bower:
+Now D.js is installable through _bower_:
+
 ```bower install D.js``` 
+
 You still can clone the repository or simply copy the file lib/D[.min].js to your server and then include it in your pages with a classic
 ```<script src="D.js"></script>```
-
-or using a javascript loader like [l.js](https://github.com/malko/l.js). 
-D.js is now also compatible with amd loaders such as requirejs or almond
+or using a javascript loader like _[l.js]_(https://github.com/malko/l.js). 
+D.js is now also compatible with amd loaders such as _require.js_ or _almond_
 
 
 ## Making an async method that return a promise:
