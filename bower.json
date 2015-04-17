@@ -1,0 +1,36 @@
+{
+  "name": "D.js",
+  "version": "0.7.1",
+  "homepage": "https://github.com/malko/D.js",
+  "authors": [
+    "malko <jgotti@jgotti.org>"
+  ],
+  "description": "a tiny promise/A+ library",
+  "main": "lib/D.min.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "Promises",
+    "A+",
+    "Promises-aplus",
+    "promise",
+    "then",
+    "async"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "gh-pages",
+    "test",
+    "tests",
+    ".jscsrc",
+    ".npmignore",
+    ".travis.yml",
+    "gruntfile.js"
+  ]
+}
