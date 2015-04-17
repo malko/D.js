@@ -20,13 +20,6 @@ module.exports = function(grunt) {
 				src:['lib/D.js', 'lib/D.min.js']
 			}
 		},
-		jscoverage: {
-			options: {
-				inputDirectory: 'lib',
-				outputDirectory: 'lib-cov',
-				highlight:true
-			}
-		},
 		mochacli: {
 			options: {
 				require: ['chai'],
@@ -43,7 +36,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-mocha-cli');
 	grunt.loadNpmTasks('grunt-version');
-	grunt.loadNpmTasks("grunt-jscoverage");
 
 	// Default task(s).
 	grunt.registerTask('default', ['build']);

@@ -15,8 +15,7 @@
     "grunt-contrib-uglify": "*",
     "grunt-mocha-cli": "~1.0",
     "chai": "~1.7",
-    "grunt-version": "~0.2.2",
-    "grunt-jscoverage": "0.0.3"
+    "grunt-version": "~0.2.2"
   },
   "scripts": {
     "test": "promises-aplus-tests lib/D.js && grunt test"
