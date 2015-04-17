@@ -18,7 +18,7 @@ Now D.js is installable through _bower_:
 
 You still can clone the repository or simply copy the file lib/D[.min].js to your server and then include it in your pages with a classic
 ```<script src="D.js"></script>```
-or using a javascript loader like _[l.js]_(https://github.com/malko/l.js). 
+or using a javascript loader like _[l.js](https://github.com/malko/l.js)_. 
 D.js is now also compatible with amd loaders such as _require.js_ or _almond_
 
 
