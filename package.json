@@ -2,7 +2,7 @@
   "author": "Jonathan Gotti <jgotti@jgotti.org>",
   "name": "d.js",
   "description": "a tiny promise/A+ library",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "licence": "MIT",
   "main": "lib/D.js",
   "repository": {
