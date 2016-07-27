@@ -2,7 +2,7 @@
 D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser (tested in ie7+, firefox and chrome)
 If you want to know more about promises/A+ you can visit this page: http://promises-aplus.github.io/promises-spec/
 <a href="http://promises-aplus.github.com/promises-spec">
-    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png"
+    <img src="https://promisesaplus.com/assets/logo-small.png"
          alt="Promises/A+ logo" title="Promises/A+ 1.0 compliant" align="right" />
 </a>
 
@@ -14,11 +14,11 @@ If you want to know more about promises/A+ you can visit this page: http://promi
 ### browsers
 Now D.js is installable through _bower_:
 
-```bower install D.js``` 
+```bower install D.js```
 
 You still can clone the repository or simply copy the file lib/D[.min].js to your server and then include it in your pages with a classic
 ```<script src="D.js"></script>```
-or using a javascript loader like _[l.js](https://github.com/malko/l.js)_. 
+or using a javascript loader like _[l.js](https://github.com/malko/l.js)_.
 D.js is now also compatible with amd loaders such as _require.js_ or _almond_
 
 

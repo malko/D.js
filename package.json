@@ -7,7 +7,7 @@
   "main": "lib/D.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com:malko/D.js.git"
+    "url": "https://github.com/malko/D.js.git"
   },
   "devDependencies": {
     "promises-aplus-tests": "2.x",
