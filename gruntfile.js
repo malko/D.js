@@ -41,5 +41,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['build']);
 	grunt.registerTask('test', ['mochacli:src','mochacli:min']);
 	grunt.registerTask('build', ['uglify','version','test']);
+	grunt.registerTask('build-patch', ['uglify','version::patch','test']);
+	grunt.registerTask('build-minor', ['uglify','version::minor','test']);
 
 };
