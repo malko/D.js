@@ -20,7 +20,7 @@ You still can clone the repository or simply copy the file lib/D[.min].js to you
 ```
 <script src="D.js"></script>
 <!-- or via rawgit cdn -->
-<script src="https://cdn.rawgit.com/malko/D.js/eb5d3236/lib/D.min.js"></script>
+<script src="https://cdn.rawgit.com/malko/D.js/v0.7.5/lib/D.min.js"></script>
 ```
 or using a javascript loader like _[l.js](https://github.com/malko/l.js)_.
 D.js is now also compatible with amd loaders such as _require.js_ or _almond_
