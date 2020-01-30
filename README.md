@@ -8,6 +8,7 @@ If you want to know more about promises/A+ you can visit this page: http://promi
 
 [![Build Status](https://travis-ci.org/malko/D.js.png?branch=master)](https://travis-ci.org/malko/D.js)
 [![Codacy Badge](https://www.codacy.com/project/badge/7940707cc94b4a919eaa75b5054b63f4)](https://www.codacy.com/public/malko/D.js.git)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmalko%2FD.js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmalko%2FD.js?ref=badge_shield)
 ## installation
 ### nodejs
 ```npm install d.js```
@@ -192,3 +193,7 @@ readFile('/etc/passwd')
 	.rethrow()
 ;
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmalko%2FD.js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmalko%2FD.js?ref=badge_large)
