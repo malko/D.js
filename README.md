@@ -1,4 +1,8 @@
 # D.js
+
+## This project won't be maintained anymore
+> It was fun to create D.js at the time it was made, but there's no mean for such a library nowadays. Promises are first citizens in javascript since a long time now and Internet explorer is dead. So I won't invest more time in this library anymore. It will stay there for people that want to look at it or cross this lib in an old project and need documentation to understand the lib. 
+
 D.js is a tiny implementation of promises/A+ made for nodejs and client-side browser (tested in ie7+, firefox and chrome)
 If you want to know more about promises/A+ you can visit this page: http://promises-aplus.github.io/promises-spec/
 <a href="http://promises-aplus.github.com/promises-spec">
